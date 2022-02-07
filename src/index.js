@@ -1,17 +1,12 @@
-const test = "test"
-console.log(data)
-
-console.log(data[0]);
-
-
+// function to create HTML for cargs
 function createCard(pokemon) {
-
-const list = document.querySelector('.cards')
-const card = document.createElement('li')
-card.setAttribute("class", "card")
-card.style.listStyle = "none"
-card.innerHTML = `<h2 class="card--title">${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}</h2>
-<img width="256" class="card--img" src='${pokemon.sprites.other['official-artwork'].front_default}'/>
+  const list = document.querySelector(".cards");
+  const card = document.createElement("li");
+  card.setAttribute("class", "card");
+  card.style.listStyle = "none";
+  card.innerHTML = `<h2 class="card--title">${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}</h2>
+<img width="256" class="card--img first" src='${pokemon.sprites.other["official-artwork"].front_default}'/>
+<img width="256" class="card--img second" src='${pokemon.sprites.back_default}'/>
 <ul class="card--text">
 <li>HP: ${pokemon.stats[0].base_stat}</li>
 <li>ATTACK: ${pokemon.stats[1].base_stat}</li>
@@ -20,33 +15,72 @@ card.innerHTML = `<h2 class="card--title">${pokemon.name[0].toUpperCase()}${poke
 <li>SPECIAL-DEFENSE: ${pokemon.stats[4].base_stat}</li>
 <li>SPEED: ${pokemon.stats[5].base_stat}</li>
 </ul>
-<p>${gamesList(pokemon)}`
-list.append(card)
+<p>${gamesList(pokemon)}</p>`;
+ list.append(card);
 }
 
+
+// loops through data to create the cards
 for (const pokemon of data) {
-createCard(pokemon)
+  createCard(pokemon);
 }
 
-const allList = document.querySelectorAll('.card--text li')
-for(let i = 0; i < allList.length; i++) {
-allList[i].style.listStyle = "none"
-allList[i].style.margin = "10px"
+//formats lists inside cards as needed
+const allList = document.querySelectorAll(".card--text li");
+for (let i = 0; i < allList.length; i++) {
+  allList[i].style.listStyle = "none";
+  allList[i].style.margin = "10px";
 }
 
-const allGames = document.querySelectorAll('p')
-for(let i = 0; i < allGames.length; i++) {
-allGames[i].style.fontSize = "13px"
-allGames[i].style.margin = "20px"
+//formats games list
+const allGames = document.querySelectorAll("p");
+for (let i = 0; i < allGames.length; i++) {
+  allGames[i].style.fontSize = "13px";
+  allGames[i].style.margin = "20px";
 }
 
+//adds all the games required to the games list
 function gamesList(pokemon) {
-    let list = `GAMES: `
-    for (let i = 0; i < pokemon.game_indices.length; i++) {
-    if(i === pokemon.game_indices.length - 1) {
-        list += `${pokemon.game_indices[i].version.name}` 
+  let list = `GAMES: `;
+  for (let i = 0; i < pokemon.game_indices.length; i++) {
+    if (i === pokemon.game_indices.length - 1) {
+      list += `${pokemon.game_indices[i].version.name}`;
+    } else {
+      list += `${pokemon.game_indices[i].version.name}, `;
     }
-    else {list += `${pokemon.game_indices[i].version.name}, ` }
-    }
-    return list
+  }
+  return list;
 }
+
+
+//deals with toggling? Not even sure if this is what is meant by toggling
+const cards = document.querySelectorAll(".card")
+const allFirst = document.querySelectorAll(".first");
+const allSecond = document.querySelectorAll(".second");
+
+
+for (let i = 0; i < allSecond.length; i++) {
+    allSecond[i].style.display = "none";
+} 
+
+for (let i = 0; i < cards.length; i++) {
+    cards[i].onclick = function(){
+        if(allSecond[i].style.display === "none"){
+        allSecond[i].style.display = "block"
+        allFirst[i].style.display = "none"
+        number++
+        }
+        if(allFirst[i].style.display === "none"){
+            allSecond[i].style.display = "none"
+            allFirst[i].style.display = "block"
+            number++
+        }
+
+    };
+} 
+
+//cycling through all the images 
+
+
+
+
