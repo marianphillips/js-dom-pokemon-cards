@@ -63,6 +63,8 @@ for (let i = 0; i < allSecond.length; i++) {
     allSecond[i].style.display = "none";
 } 
 
+
+//something is happening here and I dont know what it is (do you, mr jones) 
 for (let i = 0; i < cards.length; i++) {
     cards[i].onclick = function(){
         if(allSecond[i].style.display === "none"){
@@ -78,8 +80,6 @@ for (let i = 0; i < cards.length; i++) {
 
     };
 } 
-
-//cycling through all the images 
 
 
 
